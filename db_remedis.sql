@@ -34,7 +34,7 @@ CREATE TABLE `pasien` (
   `id_kamar` int(11) NOT NULL,
   PRIMARY KEY (`id_pasien`),
   KEY `id_kamar` (`id_kamar`),
-  CONSTRAINT `1` FOREIGN KEY (`id_kamar`) REFERENCES `tarif_kamar` (`id_kamar`)
+  CONSTRAINT `fk_pasien_kamar` FOREIGN KEY (`id_kamar`) REFERENCES `tarif_kamar` (`id_kamar`)
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -94,7 +94,7 @@ CREATE TABLE `pasien_asuransi` (
   `nomor_polis` varchar(30) NOT NULL,
   `limit_cover` int(11) NOT NULL,
   PRIMARY KEY (`id_pasien`),
-  CONSTRAINT `1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE
+  CONSTRAINT `fk_asuransi_pasien` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -133,7 +133,7 @@ CREATE TABLE `pasien_bpjs` (
   `nomor_pbi` varchar(30) NOT NULL,
   `faskes_asal` varchar(100) NOT NULL,
   PRIMARY KEY (`id_pasien`),
-  CONSTRAINT `1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE
+  CONSTRAINT `fk_bpjs_pasien` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -172,7 +172,7 @@ CREATE TABLE `pasien_umum` (
   `nik` varchar(16) NOT NULL,
   `metode_pembayaran` varchar(20) NOT NULL,
   PRIMARY KEY (`id_pasien`),
-  CONSTRAINT `1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE
+  CONSTRAINT `fk_umum_pasien` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
