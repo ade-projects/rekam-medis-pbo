@@ -1,20 +1,27 @@
 <?php
-$host     = 'localhost';
-$dbname   = 'db_remedis';
-$username = 'root'; 
-$password = '';     
+class Database {
+    private $host     = 'localhost';
+    private $dbname   = 'db_remedis';
+    private $username = 'root'; 
+    private $password = '';     
+    private $pdo; 
 
-try {
-    
-    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
-    $pdo = new PDO($dsn, $username, $password);
-    
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    
-    
-} catch (PDOException $e) {
-    die("Koneksi database gagal: " . $e->getMessage());
+    public function __construct() {
+        try {
+            $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8mb4";
+            
+            $this->pdo = new PDO($dsn, $this->username, $this->password);
+            
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            
+        } catch (PDOException $e) {
+            die("Koneksi database gagal: " . $e->getMessage());
+        }
+    }
+
+    public function getConnection() {
+        return $this->pdo;
+    }
 }
 ?>
