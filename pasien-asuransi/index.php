@@ -1,9 +1,15 @@
 <?php
-// Hubungkan dengan Controller Utama Kelompok
+// 1. Panggil semua file pondasi yang dibutuhkan
+require_once '../config/koneksi.php';
+require_once '../abstract/pasien.php'; 
+require_once 'PasienAsuransi.php'; 
 require_once '../controllers/ManajemenRumahSakit.php';
 
-// Inisialisasi controller kelompok
-$controller = new ManajemenRumahSakit();
+// 2. Buat objek koneksi database
+$database = new Database();
+
+// 3. Masukkan koneksi database tersebut ke dalam Controller (INI SOLUSI ERROR-NYA!)
+$controller = new ManajemenRumahSakit($database->getConnection());
 
 // Ambil keyword pencarian jika ada
 $search = isset($_GET['search']) ? $_GET['search'] : '';

@@ -1,5 +1,5 @@
 <?php
-// require_once __DIR__ . '/abstract/pasien.php'; 
+require_once '../abstract/pasien.php'; 
 
 class PasienUmum extends Pasien {
     // Atribut tambahan khusus untuk PasienUmum

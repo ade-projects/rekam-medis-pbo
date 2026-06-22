@@ -1,7 +1,9 @@
 <?php
 // Tugas 6: Memanggil objek Controller di baris paling atas
-require_once __DIR__ . '/../config/koneksi.php';
-require_once __DIR__ . '/../controllers/ManajemenRumahSakit.php';
+require_once '../config/koneksi.php';
+require_once '../abstract/pasien.php';
+require_once '../controllers/ManajemenRumahSakit.php';
+require_once './PasienUmum.php';
 
 $database = new Database();
 $controller = new ManajemenRumahSakit($database->getConnection());
