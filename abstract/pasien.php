@@ -1,5 +1,4 @@
 <?php
-
 abstract class Pasien {
     protected $id_pasien;
     protected $nama;

@@ -1,21 +1,17 @@
 <?php
-require_once '../abstract/pasien.php'; 
+// File: pasien-umum/PasienUmum.php
 
 class PasienUmum extends Pasien {
-    // Atribut tambahan khusus untuk PasienUmum
     private $nik;
     private $metodePembayaran;
-    private $biayaAdmin = 150000; 
+    private $biayaAdmin = 150000;
 
     public function __construct($id_pasien, $nama, $usia, $tanggal_masuk, $biayaKamarPerHari, $nik, $metodePembayaran) {
         parent::__construct($id_pasien, $nama, $usia, $tanggal_masuk, $biayaKamarPerHari);
-        
-        // Inisialisasi properti spesifik subclass
         $this->nik = $nik;
         $this->metodePembayaran = $metodePembayaran;
     }
 
-    // Getter untuk atribut baru (opsional, tapi disarankan dalam PBO)
     public function getNik() {
         return $this->nik;
     }
@@ -24,22 +20,49 @@ class PasienUmum extends Pasien {
         return $this->metodePembayaran;
     }
 
-    // Tugas 4: Perbaikan Rumus Polimorfisme hitungTotalBiaya()
-    // Tugas 3: Menggunakan getter resmi dari kelas induk
     public function hitungTotalBiaya() {
-        $total = ($this->getLamaRawat() * $this->getBiayaKamarPerHari()) + $this->biayaAdmin;
-        return $total;
+        return ($this->getLamaRawat() * $this->getBiayaKamarPerHari()) + $this->biayaAdmin;
     }
 
-    // Fungsi cetak nota struk
     public function cetakKlaimLayanan() {
-        echo "=== NOTA PEMBAYARAN PASIEN UMUM ===" . PHP_EOL;
-        echo "ID Pasien : " . $this->getIdPasien() . PHP_EOL;
-        echo "NIK       : " . $this->nik . PHP_EOL;
-        echo "Nama      : " . $this->getNama() . PHP_EOL;
-        echo "Lama Rawat: " . $this->getLamaRawat() . " Hari" . PHP_EOL;
-        echo "Total     : Rp " . number_format($this->hitungTotalBiaya(), 0, ',', '.') . PHP_EOL;
-        echo "Metode    : " . $this->metodePembayaran . PHP_EOL;
-        echo "===================================" . PHP_EOL;
+        $lamaRawat = $this->getLamaRawat();
+        $tarifKamar = $this->getBiayaKamarPerHari();
+        $biayaDasar = $lamaRawat * $tarifKamar;
+        $totalBiaya = $this->hitungTotalBiaya();
+
+        echo "
+        <div class='card my-4 shadow' style='border: 2px dashed #dc3545; max-width: 500px; width: 100%; margin: 0 auto;'>
+            <div class='card-header bg-danger text-white text-center fw-bold'>
+                <i class='bi bi-receipt me-2'></i>NOTA PEMBAYARAN PASIEN UMUM
+            </div>
+            <div class='card-body' style='font-size: 14px;'>
+                <p class='mb-1'><strong>ID Pasien:</strong> {$this->getIdPasien()}</p>
+                <p class='mb-1'><strong>NIK:</strong> {$this->nik}</p>
+                <p class='mb-1'><strong>Nama Pasien:</strong> {$this->getNama()}</p>
+                <p class='mb-1'><strong>Usia:</strong> {$this->getUsia()} Tahun</p>
+                <p class='mb-1'><strong>Tanggal Masuk:</strong> {$this->getTanggalMasuk()}</p>
+                <p class='mb-3'><strong>Lama Rawat:</strong> {$lamaRawat} Hari</p>
+                
+                <hr>
+                
+                <div class='d-flex justify-content-between mb-1 text-muted'>
+                    <span>Tarif Kamar ({$lamaRawat} Hari):</span>
+                    <span>Rp " . number_format($biayaDasar, 0, ',', '.') . "</span>
+                </div>
+                <div class='d-flex justify-content-between mb-3 text-muted'>
+                    <span>Biaya Administrasi:</span>
+                    <span>Rp " . number_format($this->biayaAdmin, 0, ',', '.') . "</span>
+                </div>
+                
+                <hr>
+                
+                <div class='d-flex justify-content-between text-danger fw-bold' style='font-size: 16px;'>
+                    <span>Total Tagihan ({$this->metodePembayaran}):</span>
+                    <span>Rp " . number_format($totalBiaya, 0, ',', '.') . "</span>
+                </div>
+            </div>
+        </div>
+        ";
     }
 }
+?>

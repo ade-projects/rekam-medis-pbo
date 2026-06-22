@@ -2,8 +2,8 @@
 class Database {
     private $host     = 'localhost';
     private $dbname   = 'db_remedis';
-    private $username = 'root'; 
-    private $password = '';     
+    private $username = 'dev'; 
+    private $password = 'dev';     
     private $pdo; 
 
     public function __construct() {

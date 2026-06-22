@@ -1,21 +1,12 @@
 <?php 
-require_once "../abstract/pasien.php";
-require_once "../config/koneksi.php";
-require_once "../controllers/ManajemenRumahSakit.php";
-/**
- * Class PasienBPJS
- * 
- * Kelas turunan dari Pasien yang merepresentasikan pasien dengan jaminan BPJS
- * Menerapkan pewarisan dan polimorfisme untuk perhitungan biaya khusus BPJS
- */
 class PasienBPJS extends Pasien {
     /**
-     * @var string Nomor PBI (Penerima Bantuan Iuran) pasien BPJS
+     * @var string 
      */
     private $nomorPBI;
     
     /**
-     * @var string Fasilitas Kesehatan asal rujukan pasien
+     * @var string 
      */
     private $faskesAsal;
     
